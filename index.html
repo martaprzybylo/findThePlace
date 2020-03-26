@@ -24,6 +24,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <div id="map-section"></div>
@@ -32,10 +33,15 @@
         var mapLayer;
 
         $(document).ready(function () {
-            //Let's give the coordinates of the place on the map and zoom in
+            //Let's give the coordinates of the place on the map and zoom
+            // We can add 'zoomControl: false/true' to switch off/on zoom button on the upper - left site of our map
+            // We can also add 'max/minZoom: x' to set the max and min zoom
             myMap = L.map('map-section', {
                 center: [51.1000000, 17.0333300],
-                zoom: 13
+                zoom: 13,
+                zoomControl: false,
+                minZoom: 10,
+                maxZoom: 17
             });
 
             //Link to the map preview
@@ -47,4 +53,5 @@
     </script>
 
 </body>
+
 </html>
