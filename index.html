@@ -32,16 +32,17 @@
         var myMap;
         var mapLayer;
         var currentDate;
+        var currentLocation;
 
         $(document).ready(function () {
             //Let's give the coordinates of the place on the map and zoom
             // We can add 'zoomControl: false/true' to switch off/on zoom button on the upper - left site of our map
             // We can also add 'max/minZoom: x' to set the max and min zoom
             myMap = L.map('map-section', {
-                center: [51.1000000, 17.0333300],
-                zoom: 13,
+                center: [52.2297700, 21.0117800],
+                zoom: 10,
                 zoomControl: false,
-                minZoom: 10,
+                minZoom: 3,
                 maxZoom: 17
             });
 
@@ -62,6 +63,32 @@
                 L.marker(e.latlng).addTo(myMap).bindPopup('Location ' + ((e.latlng.toString())
                     .substring(6, 28)) + "<br />" + currentDate.toString());
             });
+
+            // Wen we click 'l' on kay board application will find our location
+            myMap.on('keypress', function (e) {
+                if (e.originalEvent.key == "l") {
+                    myMap.locate();
+                }
+            });
+
+            // If location is no proble to find, our current location will be marked with blue circle
+            myMap.on('locationfound', function (e) {
+                currentLocation = L.circleMarker(e.latlng).addTo(myMap);
+                myMap.setView(e.latlng, 12)
+            });
+
+            // If we have any problems with finding our location, we will see alert information
+            myMap.on('locationerror', function (e) {
+                console.log(e);
+                alert("Location was not found")
+            });
+
+            // // Our location will be find in every 5 sec (setInterval use millisecons)
+            // // It's very usefull when we want to make our trace tracking
+            // setInterval(function () {
+            //     myMap.locate();
+            // }, 5000);
+
         });
     </script>
 
