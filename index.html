@@ -9,8 +9,13 @@
 
     <!--Add the necessary files-->
     <link rel="stylesheet" href="src/leaflet.css">
+    <link rel="stylesheet" href="src/plugins/L.Control.Pan.css">
+    <link rel="stylesheet" href="src/plugins/L.Control.Zoomslider.css">
+
     <script src="src/leaflet-src.js"></script>
     <script src="src/jquery-3.4.1.min.js"></script>
+    <script src="src/plugins/L.Control.Pan.js"></script>
+    <script src="src/plugins/L.Control.Zoomslider.js"></script>
 
     <!--Preformating-->
     <style>
@@ -33,10 +38,12 @@
         var mapLayer;
         var currentDate;
         var currentLocation;
+        var panController;
+        var zoomSlider;
 
         $(document).ready(function () {
             //Let's give the coordinates of the place on the map and zoom
-            // We can add 'zoomControl: false/true' to switch off/on zoom button on the upper - left site of our map
+            // We can add 'zoomControl: false/true' to switch off/on zoom button on the topleft side of our map. For zoomControl default is true.
             // We can also add 'max/minZoom: x' to set the max and min zoom
             myMap = L.map('map-section', {
                 center: [52.2297700, 21.0117800],
@@ -45,6 +52,14 @@
                 minZoom: 3,
                 maxZoom: 17
             });
+
+            //We use plugin to add NEWS contoller to our map
+            panController = L.control.pan().addTo(myMap);
+
+            //We use plugin to add zoom slider
+            //zoomSlider = L.control.zoomslider().addTo(myMap);
+            //zoomSlider = L.control.zoomslider({position: 'topright'}).addTo(myMap);
+            zoomSlider = L.control.zoomslider({position: 'bottomright'}).addTo(myMap)
 
             //Link to the map preview
             mapLayer = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
