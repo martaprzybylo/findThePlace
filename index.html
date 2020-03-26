@@ -31,6 +31,7 @@
     <script>
         var myMap;
         var mapLayer;
+        var currentDate;
 
         $(document).ready(function () {
             //Let's give the coordinates of the place on the map and zoom
@@ -49,6 +50,18 @@
 
             //Map view
             myMap.addLayer(mapLayer);
+
+            // Dialog alert with location on click in the desired place. We can also use dblclick or another
+            myMap.on('click', function (e) {
+                currentDate = new Date();
+                alert('Location ' + ((e.latlng.toString()).substring(6, 28)));
+            });
+
+            // A marker in the desired place and a small window with information about the location and date
+            myMap.on('contextmenu', function (e) {
+                L.marker(e.latlng).addTo(myMap).bindPopup('Location ' + ((e.latlng.toString())
+                    .substring(6, 28)) + "<br />" + currentDate.toString());
+            });
         });
     </script>
 
