@@ -11,11 +11,14 @@
     <link rel="stylesheet" href="src/leaflet.css">
     <link rel="stylesheet" href="src/plugins/L.Control.Pan.css">
     <link rel="stylesheet" href="src/plugins/L.Control.Zoomslider.css">
+    <link rel="stylesheet" href="src/plugins/L.Control.Zoomslider.css">
+    <link rel="stylesheet" href="src/plugins/Leaflet.PolylineMeasure.css">
 
     <script src="src/leaflet-src.js"></script>
     <script src="src/jquery-3.4.1.min.js"></script>
     <script src="src/plugins/L.Control.Pan.js"></script>
     <script src="src/plugins/L.Control.Zoomslider.js"></script>
+    <script src="src/plugins/Leaflet.PolylineMeasure.js"></script>
 
     <!--Preformating-->
     <style>
@@ -40,6 +43,7 @@
         var currentLocation;
         var panController;
         var zoomSlider;
+        var measureContoller;
 
         $(document).ready(function () {
             //Let's give the coordinates of the place on the map and zoom
@@ -59,7 +63,10 @@
             //We use plugin to add zoom slider
             //zoomSlider = L.control.zoomslider().addTo(myMap);
             //zoomSlider = L.control.zoomslider({position: 'topright'}).addTo(myMap);
-            zoomSlider = L.control.zoomslider({position: 'bottomright'}).addTo(myMap)
+            zoomSlider = L.control.zoomslider({position: 'bottomright'}).addTo(myMap);
+
+            //Leaflet Plugin to measure distances of simple lines as well as of complex polylines.
+            measureContoller = L.control.polylineMeasure({position: 'bottomleft'}).addTo(myMap);
 
             //Link to the map preview
             mapLayer = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
@@ -67,11 +74,12 @@
             //Map view
             myMap.addLayer(mapLayer);
 
-            // Dialog alert with location on click in the desired place. We can also use dblclick or another
-            myMap.on('click', function (e) {
-                currentDate = new Date();
-                alert('Location ' + ((e.latlng.toString()).substring(6, 28)));
-            });
+            // // Dialog alert with location on click in the desired place. We can also use dblclick or another.
+            // // If we want to use polyMeasure is better to turn it of
+            // myMap.on('click', function (e) {
+            //     currentDate = new Date();
+            //     alert('Location ' + ((e.latlng.toString()).substring(6, 28)));
+            // });
 
             // A marker in the desired place and a small window with information about the location and date
             myMap.on('contextmenu', function (e) {
