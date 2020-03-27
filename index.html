@@ -44,6 +44,7 @@
         var panController;
         var zoomSlider;
         var measureContoller;
+        var scaleController;
 
         $(document).ready(function () {
             //Let's give the coordinates of the place on the map and zoom
@@ -68,6 +69,9 @@
             //Leaflet Plugin to measure distances of simple lines as well as of complex polylines.
             //Remember = We can find a lot of great option  in polylineMeasure(atributes).
             measureContoller = L.control.polylineMeasure({position: 'topleft', showUnitControl: true}).addTo(myMap);
+
+            //Scale for map. 
+            scaleController = L.control.scale().addTo(myMap);
 
             //Link to the map preview
             mapLayer = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
