@@ -66,7 +66,8 @@
             zoomSlider = L.control.zoomslider({position: 'bottomright'}).addTo(myMap);
 
             //Leaflet Plugin to measure distances of simple lines as well as of complex polylines.
-            measureContoller = L.control.polylineMeasure({position: 'bottomleft'}).addTo(myMap);
+            //Remember = We can find a lot of great option  in polylineMeasure(atributes).
+            measureContoller = L.control.polylineMeasure({position: 'topleft', showUnitControl: true}).addTo(myMap);
 
             //Link to the map preview
             mapLayer = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
